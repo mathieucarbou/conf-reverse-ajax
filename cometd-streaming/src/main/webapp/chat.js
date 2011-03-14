@@ -1,11 +1,6 @@
 jQuery(function($) {
 
-    document.title = 'Cometd XMLHttpRequest Streaming Chat';
-    $('h1').text(document.title);
-
-    function log(msg) {
-        $('#logs').prepend($('<p/>').text(msg));
-    }
+    setTitle('Piggyback Chat');
 
     $('#connect').click(function() {
 
@@ -20,50 +15,25 @@ jQuery(function($) {
             // when connected successfully
             log('Connected !');
 
-            $('#connect').attr('disabled', 'disabled');
-            $('#user').attr('disabled', 'disabled');
-            $('#send').removeAttr('disabled');
-            $('#msg').removeAttr('disabled');
-
             $('#send').click(function() {
                 log('Sending message...');
                 $.post('chat', {
                     msg: $('#msg').val()
-                }, function() {
+                }, function(messages) {
+
                     log('Message sent !');
                     $('#msg').val('');
-                })
-            });
 
-            var interval;
-
-            interval = setInterval(function() {
-                log('Checking for messages...');
-                $.ajax({
-                    url: 'chat',
-                    type: 'GET',
-                    dataType: 'json'
-                }).success(function(messages) {
                     if (messages) {
                         log(messages.length + ' message(s).');
+                        addChats(messages);
                     } else {
                         log('No messages !');
                     }
-                    for (var i in messages) {
-                        var line = $('<p><span class="at"></span><br/><span class="from"></span> : <span class="msg"></span></p>');
-                        $('.from', line).text(messages[i].from);
-                        $('.at', line).text(new Date(messages[i].at).toLocaleString());
-                        $('.msg', line).text(messages[i].msg);
-                        $('#chatroom').prepend(line);
-                    }
-                }).error(function() {
-                    clearInterval(interval);
-                    $('#send').attr('disabled', 'disabled');
-                    $('#msg').attr('disabled', 'disabled');
-                    $('#connect').removeAttr('disabled');
-                    $('#user').removeAttr('disabled');
-                });
-            }, 4000);
+                })
+            });
+
+            activateChat();
         });
     });
 

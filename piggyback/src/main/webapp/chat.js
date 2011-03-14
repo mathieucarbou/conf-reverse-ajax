@@ -1,11 +1,6 @@
 jQuery(function($) {
 
-    document.title = 'Piggyback Chat';
-    $('h1').text(document.title);
-
-    function log(msg) {
-        $('#logs').prepend($('<p/>').text(msg));
-    }
+    setTitle('Piggyback Chat');
 
     $('#connect').click(function() {
 
@@ -20,11 +15,6 @@ jQuery(function($) {
             // when connected successfully
             log('Connected !');
 
-            $('#connect').attr('disabled', 'disabled');
-            $('#user').attr('disabled', 'disabled');
-            $('#send').removeAttr('disabled');
-            $('#msg').removeAttr('disabled');
-
             $('#send').click(function() {
                 log('Sending message...');
                 $.post('chat', {
@@ -36,18 +26,14 @@ jQuery(function($) {
 
                     if (messages) {
                         log(messages.length + ' message(s).');
+                        addChats(messages);
                     } else {
                         log('No messages !');
                     }
-                    for (var i in messages) {
-                        var line = $('<p><span class="at"></span><br/><span class="from"></span> : <span class="msg"></span></p>');
-                        $('.from', line).text(messages[i].from);
-                        $('.at', line).text(new Date(messages[i].at).toLocaleString());
-                        $('.msg', line).text(messages[i].msg);
-                        $('#chatroom').prepend(line);
-                    }
                 })
             });
+
+            activateChat();
         });
     });
 

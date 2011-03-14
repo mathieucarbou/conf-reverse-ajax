@@ -1,11 +1,6 @@
 jQuery(function($) {
 
-    document.title = 'Polling Chat';
-    $('h1').text(document.title);
-
-    function log(msg) {
-        $('#logs').prepend($('<p/>').text(msg));
-    }
+    setTitle('Polling Chat');
 
     $('#connect').click(function() {
 
@@ -20,11 +15,6 @@ jQuery(function($) {
             // when connected successfully
             log('Connected !');
 
-            $('#connect').attr('disabled', 'disabled');
-            $('#user').attr('disabled', 'disabled');
-            $('#send').removeAttr('disabled');
-            $('#msg').removeAttr('disabled');
-
             $('#send').click(function() {
                 var message = $('#msg').val();
                 if (message) {
@@ -38,6 +28,8 @@ jQuery(function($) {
                 }
             });
 
+            activateChat();
+
             setInterval(function() {
                 log('Checking for messages...');
                 $.ajax({
@@ -47,22 +39,10 @@ jQuery(function($) {
                 }).success(function(messages) {
                     if (messages) {
                         log(messages.length + ' message(s).');
+                        addChats(messages);
                     } else {
                         log('No messages !');
                     }
-                    for (var i in messages) {
-                        var line = $('<p><span class="at"></span><br/><span class="from"></span> : <span class="msg"></span></p>');
-                        $('.from', line).text(messages[i].from);
-                        $('.at', line).text(new Date(messages[i].at).toLocaleString());
-                        $('.msg', line).text(messages[i].msg);
-                        $('#chatroom').prepend(line);
-                    }
-                }).error(function() {
-                    clearInterval(interval);
-                    $('#send').attr('disabled', 'disabled');
-                    $('#msg').attr('disabled', 'disabled');
-                    $('#connect').removeAttr('disabled');
-                    $('#user').removeAttr('disabled');
                 });
             }, 4000);
         });
