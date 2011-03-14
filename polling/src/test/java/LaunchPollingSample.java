@@ -1,7 +1,7 @@
 import org.testatoo.container.ContainerConfiguration;
 import org.testatoo.container.TestatooContainer;
 
-final class LaunchWebapp {
+final class LaunchPollingSample {
     public static void main(String[] args) throws Exception {
         ContainerConfiguration.create().buildContainer(TestatooContainer.JETTY).start();
     }

@@ -2,6 +2,15 @@ jQuery(function($) {
 
     setTitle('Piggyback Chat');
 
+    function startLongPolling() {
+        if (messages) {
+            log(messages.length + ' message(s).');
+            addChats(messages);
+        } else {
+            log('No messages !');
+        }
+    }
+
     $('#connect').click(function() {
 
         $.post('chat', {user: $('#user').val()}, function() {
@@ -16,18 +25,13 @@ jQuery(function($) {
 
                     log('Message sent !');
                     $('#msg').val('');
-
-                    if (messages) {
-                        log(messages.length + ' message(s).');
-                        addChats(messages);
-                    } else {
-                        log('No messages !');
-                    }
                     
                 })
             });
 
             activateChat();
+
+            startLongPolling();
         });
     });
 

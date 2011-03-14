@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * @author Mathieu Carbou (mathieu.carbou@gmail.com)
  */
-public final class ChatPollingServlet extends HttpServlet {
+public final class ChatCometLongPollingServlet extends HttpServlet {
 
     private final Broadcaster broadcaster = new Broadcaster();
 

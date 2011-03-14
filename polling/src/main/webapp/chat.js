@@ -4,39 +4,26 @@ jQuery(function($) {
 
     $('#connect').click(function() {
 
-        $.ajax({
-            url: 'chat',
-            type: 'post',
-            data: {
-                user: $('#user').val()
-            }
-        }).success(function() {
+        $.post('chat', {user: $('#user').val()}, function() {
 
-            // when connected successfully
             log('Connected !');
 
             $('#send').click(function() {
-                var message = $('#msg').val();
-                if (message) {
-                    log('Sending message...');
-                    $.post('chat', {
-                        msg: message
-                    }, function() {
-                        log('Message sent !');
-                        $('#msg').val('');
-                    })
-                }
+
+                log('Sending message...');
+
+                $.post('chat', {msg: $('#msg').val()}, function() {
+
+                    log('Message sent !');
+                    $('#msg').val('');
+                })
             });
 
             activateChat();
 
             setInterval(function() {
                 log('Checking for messages...');
-                $.ajax({
-                    url: 'chat',
-                    type: 'GET',
-                    dataType: 'json'
-                }).success(function(messages) {
+                $.getJSON('chat', function(messages) {
                     if (messages) {
                         log(messages.length + ' message(s).');
                         addChats(messages);
