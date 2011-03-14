@@ -13,7 +13,7 @@
     };
 
     window.log = function(msg) {
-        $('#logs').prepend($('<p/>').text(msg));
+        $('#logs').prepend($('<div/>').text(msg));
     };
 
     window.addChats = function(messages) {

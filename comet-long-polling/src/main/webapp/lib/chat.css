@@ -3,6 +3,10 @@ fieldset {
     padding: 10px;
 }
 
+fieldset p, fieldset div {
+    font-family: monospace;
+}
+
 legend {
     font-weight: bold;
     font-style: italic;

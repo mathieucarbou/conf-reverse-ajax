@@ -22,12 +22,12 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>ChatPollingServlet</servlet-name>
-        <servlet-class>ChatPollingServlet</servlet-class>
+        <servlet-name>ChatCometStreamingServlet</servlet-name>
+        <servlet-class>ChatCometStreamingServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ChatPollingServlet</servlet-name>
+        <servlet-name>ChatCometStreamingServlet</servlet-name>
         <url-pattern>/chat</url-pattern>
     </servlet-mapping>
 

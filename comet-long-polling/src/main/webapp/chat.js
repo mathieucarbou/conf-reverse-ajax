@@ -1,14 +1,17 @@
 jQuery(function($) {
 
-    setTitle('Piggyback Chat');
+    setTitle('Comet Long Polling Chat');
 
     function startLongPolling() {
-        if (messages) {
-            log(messages.length + ' message(s).');
-            addChats(messages);
-        } else {
-            log('No messages !');
-        }
+        $.getJSON('chat', function(messages) {
+            if (messages) {
+                log(messages.length + ' message(s).');
+                addChats(messages);
+            } else {
+                log('No messages !');
+            }
+            startLongPolling();
+        });
     }
 
     $('#connect').click(function() {
@@ -25,7 +28,7 @@ jQuery(function($) {
 
                     log('Message sent !');
                     $('#msg').val('');
-                    
+
                 })
             });
 

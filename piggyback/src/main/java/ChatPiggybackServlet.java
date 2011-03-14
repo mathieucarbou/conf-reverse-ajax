@@ -20,12 +20,10 @@ public final class ChatPiggybackServlet extends HttpServlet {
         if (paramUser != null) {
             req.getSession().setAttribute("user", paramUser);
             broadcaster.connect(req);
-            System.out.println("User connected: " + paramUser);
         }
 
         String message = req.getParameter("msg");
         if (message != null) {
-            System.out.println("Broadcasting message: " + message);
             broadcaster.broadcast(req, message);
         }
 
@@ -34,7 +32,6 @@ public final class ChatPiggybackServlet extends HttpServlet {
 
         String user = (String) req.getSession().getAttribute("user");
         if (user != null) {
-            System.out.println("Reading messages for user : " + user);
             JSONArray list = broadcaster.readMessages(req);
             resp.getWriter().write(list.toString());
             resp.getWriter().flush();

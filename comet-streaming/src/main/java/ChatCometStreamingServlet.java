@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 /**
  * @author Mathieu Carbou (mathieu.carbou@gmail.com)
  */
-public final class ChatCometLongPollingServlet extends HttpServlet {
+public final class ChatCometStreamingServlet extends HttpServlet {
 
     final Queue<Continuation> continuations = new ConcurrentLinkedQueue<Continuation>();
 
