@@ -15,9 +15,8 @@ public final class ChatPiggybackServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String paramUser = req.getParameter("user");
 
-        // a user is connecting
+        String paramUser = req.getParameter("user");
         if (paramUser != null) {
             req.getSession().setAttribute("user", paramUser);
             broadcaster.connect(req);

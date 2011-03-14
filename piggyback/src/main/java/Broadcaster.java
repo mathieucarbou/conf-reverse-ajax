@@ -24,7 +24,7 @@ final class Broadcaster {
     void broadcast(HttpServletRequest req, String message) {
         try {
             JSONObject msg = new JSONObject()
-                    .put("from", req.getSession().getAttribute("user"))
+                    .put("from", req.getSession().getAttribute("user") + " (" + req.getRemoteHost() + ":" + req.getRemotePort() + ")")
                     .put("at", System.currentTimeMillis())
                     .put("msg", message);
             for (Queue<JSONObject> queue : messages.values())
