@@ -12,7 +12,7 @@ jQuery(function($) {
 
     $('#connect').click(function() {
 
-        $.post('chat', {user: $('#user').val()}, function() {
+        $.post('login', {user: $('#user').val()}, function() {
 
             log('User logged !');
 
@@ -22,7 +22,7 @@ jQuery(function($) {
 
             log('Transport choosed: ' + $.atmosphere.request.transport);
 
-            $.atmosphere.subscribe('chatroom', function(response) {
+            $.atmosphere.subscribe('chat/chatroom', function(response) {
                 log('Transport used: ' + response.transport);
                 if (response.transport != 'polling' && response.state != 'connected' && response.state != 'closed') {
                     if (response.status == 200) {
@@ -38,9 +38,10 @@ jQuery(function($) {
                 log('Sending message...');
 
                 $.atmosphere.request = {
-                    data: $('#msg').val('')
+                    data: $('#msg').val()
                 };
-                connectedEndpoint.push('chatroom', null, $.atmosphere.request);
+                connectedEndpoint.push('chat/chatroom', null, $.atmosphere.request);
+                $('#msg').val('');
 
             });
 
