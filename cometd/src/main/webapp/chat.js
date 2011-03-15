@@ -2,36 +2,40 @@ WEB_SOCKET_SWF_LOCATION = '/chat/WebSocketMain.swf';
 
 jQuery(function($) {
 
-    setTitle('Socket.IO Chat');
+    setTitle('Cometd Chat');
 
     $('#connect').click(function() {
 
-        $.post('chat', {user: $('#user').val()}, function() {
+        $.post('login', {user: $('#user').val()}, function() {
 
             log('User logged.');
 
-            var socket = new io.Socket(document.domain, {
-                resource: 'chat'
+            $.cometd.websocketEnabled = true;
+            $.cometd.configure({
+                url: document.location + 'cometd',
+                logLevel: 'debug',
+                maxNetworkDelay: 30000
             });
 
-            socket.on('connect', function() {
-                log('Connected !');
-            });
+            $.cometd.handshake();
 
-            socket.on('disconnect', function(disconnectReason, errorMessage) {
-                log('Closed ! reason=' + disconnectReason + ', error=' + errorMessage);
+            $.cometd.subscribe("/topics/chatroom", function(event) {
+                console.log(arguments);
+                addChats(event.data);
             });
-
-            socket.on('message', function(mtype, data, error) {
-                addChats($.parseJSON(data));
-            });
-
-            socket.connect();
 
             $('#send').click(function() {
 
                 log('Sending message...');
-                socket.send($('#msg').val());
+
+                $.cometd.publish('/topics/chatroom', [
+                    {
+                        from: $('#user').val(),
+                        msg: $('#msg').val(),
+                        at: new Date().getTime()
+                    }
+                ]);
+
                 $('#msg').val('');
 
             });
