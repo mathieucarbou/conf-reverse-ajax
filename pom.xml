@@ -64,6 +64,29 @@
                 <artifactId>socketio-jetty</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
+            <!-- atmosphere -->
+            <dependency>
+                <groupId>org.atmosphere</groupId>
+                <artifactId>atmosphere-runtime</artifactId>
+                <version>0.7</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.atmosphere</groupId>
+                        <artifactId>atmosphere-ping</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.atmosphere</groupId>
+                <artifactId>atmosphere-jersey</artifactId>
+                <version>0.7</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.atmosphere</groupId>
+                        <artifactId>atmosphere-ping</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <!-- servlet apis -->
             <dependency>
                 <groupId>org.mortbay.jetty</groupId>
