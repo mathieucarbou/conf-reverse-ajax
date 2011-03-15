@@ -22,6 +22,7 @@
         <module>websocket</module>
         <module>servlet30</module>
         <module>socketio</module>
+        <module>event-driven</module>
         <module>atmosphere</module>
         <module>cometd</module>
     </modules>
