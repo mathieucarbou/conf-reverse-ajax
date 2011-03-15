@@ -64,13 +64,15 @@ public final class ChatCometStreamingServlet extends HttpServlet {
 
         } else {
             Continuation continuation = ContinuationSupport.getContinuation(req);
+            continuation.setTimeout(0);
             continuation.suspend();
-            continuations.offer(continuation);
 
             resp.setContentType("multipart/x-mixed-replace;boundary=\"" + boundary + "\"");
             resp.setHeader("Connection", "keep-alive");
             resp.getOutputStream().print("--" + boundary);
             resp.flushBuffer();
+
+            continuations.offer(continuation);
         }
     }
 }
