@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="lib/chat.css" type="text/css" media="all"/>
+    <script type="text/javascript" src="lib/jquery-1.5.js"></script>
+    <script type="text/javascript" src="lib/jquery.json-2.2.js"></script>
+    <script type="text/javascript" src="lib/util.js"></script>
+
+    <script type="text/javascript" src="chat.js"></script>
+    <script type="text/javascript" src="chat/socket.io.js"></script>
+</head>
+<body>
+
+    <h1></h1>
+
+    <p>Nickname: <input type="text" name="user" id="user"> <button id="connect">Connect</button></p>
+    <p>Message: <input type="text" name="msg" id="msg" disabled="disabled"> <button id="send" disabled="disabled">Send</button></p>
+
+    <fieldset id="chatroom">
+        <legend>Chatroom (most recent at the top)</legend>
+    </fieldset>
+
+    <fieldset id="logs">
+        <legend>Logs (most recent at the top)</legend>
+    </fieldset>
+
+</body>
+</html>

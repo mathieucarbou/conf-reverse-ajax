@@ -19,6 +19,14 @@
             <artifactId>jettison</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.glines.socketio</groupId>
+            <artifactId>socketio-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.glines.socketio.extension</groupId>
+            <artifactId>socketio-jetty</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <scope>provided</scope>
