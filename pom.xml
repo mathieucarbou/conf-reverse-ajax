@@ -23,6 +23,7 @@
         <module>servlet30</module>
         <module>socketio</module>
         <module>atmosphere</module>
+        <module>cometd</module>
     </modules>
 
     <build>
