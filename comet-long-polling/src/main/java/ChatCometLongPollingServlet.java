@@ -31,10 +31,11 @@ public final class ChatCometLongPollingServlet extends HttpServlet {
         String user = (String) req.getSession().getAttribute("user");
         if (message != null && user != null) {
             try {
-                JSONObject msg = new JSONObject()
+                String msg = new JSONArray().put(new JSONObject()
                         .put("from", user + " (" + req.getRemoteHost() + ":" + req.getRemotePort() + ")")
                         .put("at", System.currentTimeMillis())
-                        .put("msg", message);
+                        .put("msg", message))
+                        .toString();
 
                 while (!continuations.isEmpty()) {
                     Continuation continuation = continuations.poll();
@@ -42,7 +43,7 @@ public final class ChatCometLongPollingServlet extends HttpServlet {
                     HttpServletResponse peer = (HttpServletResponse) continuation.getServletResponse();
                     peer.setStatus(HttpServletResponse.SC_OK);
                     peer.setContentType("application/json");
-                    peer.getWriter().write(new JSONArray().put(msg).toString());
+                    peer.getWriter().write(msg);
 
                     continuation.complete();
                 }

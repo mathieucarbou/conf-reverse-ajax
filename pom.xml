@@ -19,6 +19,7 @@
         <module>piggyback</module>
         <module>comet-long-polling</module>
         <module>comet-streaming</module>
+        <module>websocket</module>
     </modules>
 
     <build>
@@ -44,6 +45,11 @@
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-continuation</artifactId>
+                <version>8.0.0.M2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-websocket</artifactId>
                 <version>8.0.0.M2</version>
             </dependency>
             <dependency>

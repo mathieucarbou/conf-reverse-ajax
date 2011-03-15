@@ -1,0 +1,21 @@
+fieldset {
+    margin: 10px;
+    padding: 10px;
+}
+
+fieldset p, fieldset div {
+    font-family: monospace;
+}
+
+legend {
+    font-weight: bold;
+    font-style: italic;
+}
+
+h1 {
+    text-align: center;
+}
+
+span.msg {
+    background-color: #d3d3d3;
+}

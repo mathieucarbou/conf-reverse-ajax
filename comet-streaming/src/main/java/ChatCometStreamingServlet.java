@@ -32,17 +32,18 @@ public final class ChatCometStreamingServlet extends HttpServlet {
         String user = (String) req.getSession().getAttribute("user");
         if (message != null && user != null) {
             try {
-                JSONObject msg = new JSONObject()
+                String msg = new JSONArray().put(new JSONObject()
                         .put("from", user + " (" + req.getRemoteHost() + ":" + req.getRemotePort() + ")")
                         .put("at", System.currentTimeMillis())
-                        .put("msg", message);
+                        .put("msg", message))
+                        .toString();
 
                 for (Continuation continuation : continuations) {
 
                     HttpServletResponse peer = (HttpServletResponse) continuation.getServletResponse();
                     peer.getOutputStream().println("Content-Type: application/json");
                     peer.getOutputStream().println();
-                    peer.getOutputStream().println(new JSONArray().put(msg).toString());
+                    peer.getOutputStream().println(msg);
                     peer.getOutputStream().println("--" + boundary);
                     peer.flushBuffer();
 
