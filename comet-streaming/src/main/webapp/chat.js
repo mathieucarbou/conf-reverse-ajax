@@ -1,39 +1,37 @@
 jQuery(function($) {
 
-    setTitle('Piggyback Chat');
+    setTitle('Comet Http Streaming Chat');
 
     $('#connect').click(function() {
 
-        $.ajax({
-            url: 'chat',
-            type: 'post',
-            data: {
-                user: $('#user').val()
-            }
-        }).success(function() {
+        $.post('chat', {user: $('#user').val()}, function() {
 
-            // when connected successfully
             log('Connected !');
 
             $('#send').click(function() {
+
                 log('Sending message...');
-                $.post('chat', {
-                    msg: $('#msg').val()
-                }, function(messages) {
+
+                $.post('chat', {msg: $('#msg').val()}, function() {
 
                     log('Message sent !');
                     $('#msg').val('');
 
-                    if (messages) {
-                        log(messages.length + ' message(s).');
-                        addChats(messages);
-                    } else {
-                        log('No messages !');
-                    }
                 })
             });
 
             activateChat();
+
+            var xhr = jQuery.ajaxSettings.xhr();
+            xhr.multipart = true;
+            xhr.open('GET', 'chat', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    addChats($.parseJSON(xhr.responseText));
+                }
+            };
+            xhr.send(null);
+            
         });
     });
 

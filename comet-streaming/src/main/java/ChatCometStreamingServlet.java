@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public final class ChatCometStreamingServlet extends HttpServlet {
 
     final Queue<Continuation> continuations = new ConcurrentLinkedQueue<Continuation>();
+    final String boundary = "ABCDEFGHIJKLMNOPQRST"; // generated
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,15 +37,16 @@ public final class ChatCometStreamingServlet extends HttpServlet {
                         .put("at", System.currentTimeMillis())
                         .put("msg", message);
 
-                while (!continuations.isEmpty()) {
-                    Continuation continuation = continuations.poll();
+                for (Continuation continuation : continuations) {
 
                     HttpServletResponse peer = (HttpServletResponse) continuation.getServletResponse();
-                    peer.setStatus(HttpServletResponse.SC_OK);
-                    peer.setContentType("application/json");
-                    peer.getWriter().write(new JSONArray().put(msg).toString());
+                    peer.getOutputStream().println("Content-Type: application/json");
+                    peer.getOutputStream().println();
+                    peer.getOutputStream().println();
+                    peer.getOutputStream().println(new JSONArray().put(msg).toString());
+                    peer.getOutputStream().println("--" + boundary);
+                    peer.flushBuffer();
 
-                    continuation.complete();
                 }
                 resp.setStatus(HttpServletResponse.SC_OK);
             } catch (JSONException e) {
@@ -64,6 +66,11 @@ public final class ChatCometStreamingServlet extends HttpServlet {
             Continuation continuation = ContinuationSupport.getContinuation(req);
             continuation.suspend();
             continuations.offer(continuation);
+
+            resp.setContentType("multipart/x-mixed-replace;boundary=\"" + boundary + "\"");
+            resp.setHeader("Connection", "keep-alive");
+            resp.getOutputStream().print("--" + boundary);
+            resp.flushBuffer();
         }
     }
 }

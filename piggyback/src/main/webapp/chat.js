@@ -17,12 +17,7 @@ jQuery(function($) {
                     log('Message sent !');
                     $('#msg').val('');
 
-                    if (messages) {
-                        log(messages.length + ' message(s).');
-                        addChats(messages);
-                    } else {
-                        log('No messages !');
-                    }
+                    addChats(messages);
                     
                 })
             });

@@ -17,8 +17,13 @@
     };
 
     window.addChats = function(messages) {
-        for (var i in messages) {
-            addChat(messages[i]);
+        if (messages) {
+            log(messages.length + ' message(s).');
+            for (var i in messages) {
+                addChat(messages[i]);
+            }
+        } else {
+            log('No messages !');
         }
     };
 

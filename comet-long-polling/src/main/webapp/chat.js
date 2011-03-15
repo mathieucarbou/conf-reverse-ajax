@@ -4,12 +4,7 @@ jQuery(function($) {
 
     function startLongPolling() {
         $.getJSON('chat', function(messages) {
-            if (messages) {
-                log(messages.length + ' message(s).');
-                addChats(messages);
-            } else {
-                log('No messages !');
-            }
+            addChats(messages);
             startLongPolling();
         });
     }
