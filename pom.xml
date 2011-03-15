@@ -20,6 +20,9 @@
         <module>comet-long-polling</module>
         <module>comet-streaming</module>
         <module>websocket</module>
+        <module>servlet30</module>
+        <module>socketio</module>
+        <module>atmosphere</module>
     </modules>
 
     <build>
@@ -51,6 +54,11 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-websocket</artifactId>
                 <version>8.0.0.M2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>3.0.20100224</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
