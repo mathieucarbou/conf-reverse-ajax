@@ -22,25 +22,20 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>AtmosphereServlet</servlet-name>
-        <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+        <servlet-name>CometdServlet</servlet-name>
+        <servlet-class>org.cometd.server.CometdServlet</servlet-class>
         <init-param>
-            <param-name>org.atmosphere.useWebSocket</param-name>
-            <param-value>true</param-value>
+            <param-name>timeout</param-name>
+            <param-value>60000</param-value>
         </init-param>
         <init-param>
-            <param-name>org.atmosphere.useNative</param-name>
-            <param-value>true</param-value>
+            <param-name>logLevel</param-name>
+            <param-value>3</param-value>
         </init-param>
-        <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>rest</param-value>
-        </init-param>
-
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AtmosphereServlet</servlet-name>
+        <servlet-name>CometdServlet</servlet-name>
         <url-pattern>/chat/*</url-pattern>
     </servlet-mapping>
 
@@ -48,10 +43,9 @@
         <servlet-name>ChatLoginServlet</servlet-name>
         <servlet-class>ChatLoginServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ChatLoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/login/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

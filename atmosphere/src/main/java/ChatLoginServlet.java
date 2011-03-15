@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * @author Mathieu Carbou (mathieu.carbou@gmail.com)
  */
-public final class ChatAtmosphereServlet extends HttpServlet {
+public final class ChatLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String paramUser = req.getParameter("user");
