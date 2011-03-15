@@ -2,6 +2,10 @@ jQuery(function($) {
 
     setTitle('Comet Http Streaming Chat');
 
+    if (!('XMLHttpRequest' in window && 'multipart' in window.XMLHttpRequest.prototype)) {
+        alert('Comet Http Streaming Chat not supported in your browser !');
+    }
+
     $('#connect').click(function() {
 
         $.post('chat', {user: $('#user').val()}, function() {
@@ -31,7 +35,7 @@ jQuery(function($) {
                 }
             };
             xhr.send(null);
-            
+
         });
     });
 

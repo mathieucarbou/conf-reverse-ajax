@@ -42,7 +42,6 @@ public final class ChatCometStreamingServlet extends HttpServlet {
                     HttpServletResponse peer = (HttpServletResponse) continuation.getServletResponse();
                     peer.getOutputStream().println("Content-Type: application/json");
                     peer.getOutputStream().println();
-                    peer.getOutputStream().println();
                     peer.getOutputStream().println(new JSONArray().put(msg).toString());
                     peer.getOutputStream().println("--" + boundary);
                     peer.flushBuffer();
