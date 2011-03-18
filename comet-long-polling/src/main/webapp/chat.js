@@ -19,7 +19,7 @@ jQuery(function($) {
 
                 log('Sending message...');
 
-                $.post('chat', {msg: $('#msg').val()}, function(messages) {
+                $.post('chat', {msg: $('#msg').val()}, function() {
 
                     log('Message sent !');
                     $('#msg').val('');

@@ -63,6 +63,7 @@ public final class ChatCometLongPollingServlet extends HttpServlet {
 
         } else {
             Continuation continuation = ContinuationSupport.getContinuation(req);
+            continuation.setTimeout(0);
             continuation.suspend();
             continuations.offer(continuation);
         }
