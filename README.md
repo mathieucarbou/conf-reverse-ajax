@@ -1,6 +1,6 @@
-== How to setup samples ==
+## How to setup samples
 
-First edit your Maven settings.xml file to add Mycila snapshot repository to get latest Soecket.IO-Java libraries. You'll find all necessary information here: http://code.google.com/p/mc-repo/
+First edit your Maven settings.xml file to add Mycila snapshot repository to get latest Soecket.IO-Java libraries. You'll find all necessary information at [Mycila Repository wiki](http://code.google.com/p/mc-repo/).
 
 Then get the samples and build them:
 
